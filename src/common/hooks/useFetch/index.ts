@@ -1,5 +1,6 @@
-import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
+import Http from "../../lib/httpClient";
+import { IHttp } from "../../lib/httpClient/http.interface";
 
 type FetchResult<T> = {
   data: T | null;
@@ -12,13 +13,15 @@ const useFetch = <T>(url: string): FetchResult<T> => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const http: IHttp = Http();
+
   useEffect(() => {
     setIsLoading(true);
 
-    axios
-      .get(url)
-      .then((response: AxiosResponse<T>) => {
-        setData(response.data);
+    http
+      .get<T>(url)
+      .then((response) => {
+        setData(response);
         setIsLoading(false);
       })
       .catch((err) => {
