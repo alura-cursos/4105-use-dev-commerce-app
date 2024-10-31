@@ -1,14 +1,13 @@
 import Input, { InputProps } from "../Input";
-
+import Styles from "./IconInput.module.css";
 type IconInputProps = {
   children: React.ReactNode;
 } & InputProps;
-
 const IconInput = ({ children, ...props }: IconInputProps) => {
   return (
-    <div>
+    <div className={Styles.iconInputContainer}>
       <Input {...props} />
-      <div>{children}</div>
+      <div className={Styles.iconContainer}>{children}</div>
     </div>
   );
 };
